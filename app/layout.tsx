@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { Toaster } from "@/components/ui/toaster";
 
 import "./globals.css";
 import { extractRouterConfig } from "uploadthing/server";
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         {children}
+        <Toaster />
       </body>
     </html>
   );

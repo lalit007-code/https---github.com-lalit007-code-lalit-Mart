@@ -32,6 +32,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { categories } from "@/app/lib/categories";
 import { SubmitButton } from "@/components/SubmitButton";
+import { toast } from "@/components/ui/use-toast";
 
 export default function ProductCreateRoute() {
   //for great user experience so user can interact with uploaded image
@@ -40,6 +41,7 @@ export default function ProductCreateRoute() {
   //server action and intial state
 
   const [lastResult, action] = useFormState(createProduct, undefined);
+
   //conform-to-zod?
   const [form, fields] = useForm({
     lastResult,
@@ -53,6 +55,10 @@ export default function ProductCreateRoute() {
 
   const handleDelete = (index: number) => {
     setImages(images.filter((_, i) => i !== index));
+    toast({
+      title: "Photo removed",
+      variant: "default",
+    });
   };
   return (
     <form action={action} id={form.id} onSubmit={form.onSubmit}>
@@ -192,9 +198,18 @@ export default function ProductCreateRoute() {
                   endpoint="imageUploader"
                   onClientUploadComplete={(res) => {
                     setImages(res.map((r) => r.url));
+                    toast({
+                      title: "Photo uploaded sucessfully",
+                      variant: "default",
+                    });
                   }}
                   onUploadError={() => {
                     alert("Something went wrong");
+                    toast({
+                      title: "Error",
+                      description: "Please try again uploading",
+                      variant: "destructive",
+                    });
                   }}
                 />
               )}
