@@ -8,10 +8,15 @@ import {
   LoginLink,
   RegisterLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
+import { redis } from "@/app/lib/redis";
+import { Cart } from "@/app/lib/interfaces";
 
 export async function Navbar() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
+  const cart: Cart | null = await redis.get(`cart-${user?.id}`);
+  const totalCartItem =
+    cart?.items.reduce((sum, item) => sum + item.quantity, 0) || 0;
   return (
     <nav className="w-full max-w-7xl mx-auto px-4  sm:px-6 lg:px-8 py-5 flex justify-between items-center">
       <div className="flex items-center">
@@ -28,7 +33,7 @@ export async function Navbar() {
             <Link href={"/bag"} className="group p-2 flex items-center mr-2">
               <ShoppingBag className="h-6 w-6 text-gray-400 group-hover:text-gray-500" />
               <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                5
+                {totalCartItem}
               </span>
             </Link>
             <UserDropdown

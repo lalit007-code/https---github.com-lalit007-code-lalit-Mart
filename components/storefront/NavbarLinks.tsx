@@ -43,7 +43,8 @@ export function NavbarLinks() {
           className={cn(
             location === item.href
               ? "bg-muted"
-              : "hover:bg-muted hover:bg-opacity-75", 'group p-2 font-medium rounded-md:'
+              : "hover:bg-muted hover:bg-opacity-75",
+            "group p-2 font-medium rounded-md"
           )}
         >
           {item.name}

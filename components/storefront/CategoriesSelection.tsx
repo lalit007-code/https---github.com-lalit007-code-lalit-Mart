@@ -38,7 +38,7 @@ export function CategoriesSelection() {
         <div className="group aspect-w-2 aspect-h-1 rounded-xl overflow-hidden sm:relative sm:aspect-none sm:h-full">
           <Image
             src={men}
-            alt="women prodcuts image"
+            alt="men prodcuts image"
             className="object-bottom object-cover sm:absolute sm:inset-0 sm:w-full sm:h-full"
           />
           <div className="bg-gradient-to-b from-transparent to-black opacity-55 sm:absolute sm:inset-0" />
